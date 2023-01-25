@@ -1,0 +1,107 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>任务管理</h1>
+<!--    发送方式一 -->
+<!--      <h3><input type="submit" class="btn btn-info btn-xs" value="点击" onclick="clickMe();"></h3>-->
+            <input id="btn5" type="submit" class="btn btn-info btn-xs" value="点击" >
+        <h2>
+            <input type="text" id="txtName" placeholder="姓名">
+            <input type="text" id="txtAge" placeholder="年龄">
+            <input id="btn6" type="button" class="btn btn-info btn-xs" value="点击" >
+        </h2>
+        <h3>示例3</h3>
+        <form id="form3">
+            <input type="text" name="user" placeholder="姓名">
+            <input type="text" name="age" placeholder="年龄">
+            <input type="text" name="email" placeholder="邮箱">
+            <input type="text" name="more" placeholder="介绍">
+        </form>
+        <input type="button" id="btn3" class="btn btn-info btn-xs" value="点击">
+    </div>
+
+{% endblock %}
+
+{% block js %}
+  <script type="text/javascript">
+<!--    function clickMe() {-->
+<!--      console.log("点击");-->
+<!--    }-->
+
+<!-- url:发送地址 type:发送方式 data:发送内容 success:发送成功后执行  success: function (res)返回的值 -->
+<!-- 发送方式一 -->
+<!--        function clickMe() {-->
+<!--            $.ajax({-->
+<!--                url:'/task/ajax/',-->
+<!--                type:"post",-->
+<!--                data:{-->
+<!--                    n1:123,-->
+<!--                    n2:456,-->
+<!--                },-->
+<!--                success: function (res) {-->
+<!--                    console.log(res);-->
+<!--                }-->
+<!--            })-->
+<!--        }-->
+
+<!--  第二种  -->
+<!-- dataType:'JSON'  把收到的json格式转换为对象    -->
+        $(function () {
+            // 页面框架加载完成之后代码自动执行
+            bindBtn1Event();
+            bindBth2Event();
+            bindBth3Event();
+        })
+        function bindBtn1Event() {
+            $("#btn5").click(function () {
+                $.ajax({
+                    url:'/task/ajax/',
+                    type:"post",
+                    data:{
+                        n1:123,
+                        n2:456,
+                    },
+                    dataType: 'JSON',
+                    success: function (res) {
+                        console.log(res);
+                        console.log(res.status);
+                        console.log(res.data);
+                    }
+                })
+            })
+        }
+        function bindBth2Event() {
+            $("#btn6").click(function () {
+                $.ajax({
+                    url:'/task/ajax/',
+                    type:"post",
+                    data:{
+                        name:$("#txtName").val(),
+                        age:$("#txtAge").val()
+
+                    },
+                    dataType:'JSON',
+                    success: function (res) {
+                        console.log(res);
+                    }
+                })
+            })
+        }
+        function bindBth3Event() {
+            $("#btn3").click(function () {
+                $.ajax({
+                    url:'/task/ajax/',
+                    type:"post",
+                    data:$("#form3").serialize(),
+                    dataType:'JSON',
+                    success: function (res) {
+                        console.log(res);
+                    }
+                })
+            })
+        }
+
+  </script>
+{% endblock %}

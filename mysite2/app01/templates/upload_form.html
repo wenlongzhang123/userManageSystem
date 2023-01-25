@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">{{ title }}</div>
+            <!-- Table -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        {% for field in form %}
+                            <th>{{ field.label }}</th>
+                        {% endfor %}
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <form method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                        <tr>
+                            {% for field in form %}
+                                <td>{{ field }}</td>
+                            {% endfor %}
+                            <td><input type="submit" class="btn btn-warning btn-xs"></td>
+                        </tr>
+                        <tr>
+                            {% for field in form %}
+                                <td style="color: red">{{field.errors.0}}</td>
+                            {% endfor %}
+                        </tr>
+                    </form>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="container">
+    <!-- Single button -->
+    <div class="clearfix" style="margin-bottom: 10px">
+        <a class="btn btn-warning" href="/pretty/add/" target="_blank">
+            新建靓号</a>
+        <div style="float: right;width: 300px">
+            <form method="get">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="q" placeholder="Search for..."
+                           value="{{ search_data }}">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Go!</button>
+                        </span>
+                </div><!-- /input-group -->
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">靓号列表</div>
+        <!-- Table -->
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>手机号</th>
+                <th>价格</th>
+                <th>级别</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in queryset %}
+            <tr>
+                <th scope="row">{{ item.id }}</th>
+                <td>{{ item.mobile }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.get_level_display }}</td>
+                <td>{{ item.get_status_display }}</td>
+                <td>
+                    <a class="btn btn-primary btn-xs" href="/pretty/{{ item.id }}/edit/">编辑</a>
+                    <a class="btn btn-danger btn-xs" href="/pretty/{{ item.id }}/delete/">删除</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <ul class="pagination">
+        {{ page_string }}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <!-- Single button -->
+        <div style="margin-bottom: 10px">
+            <a class="btn btn-warning" href="/pretty/add/" target="_blank">新建靓号</a>
+        </div>
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">修改靓号</div>
+            <!-- Table -->
+            <table class="table table-bordered" >
+                <thead>
+                    <tr>
+                       {% for field in form %}
+                            <th>{{ field.label }}</th>
+                        {% endfor %}
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <td>{{ field }}</td>
+                        {% endfor %}
+                        <td><input type="submit" class="btn btn-warning btn-xs"></td>
+                    </form>
+                    <tr>
+                        {% for field in form %}
+                            <td style="color: red">{{ field.errors.0 }}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

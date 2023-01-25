@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+{% block css %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css' %}">
+{% endblock %}
+{% block content %}
+    <div>
+        <!-- Single button -->
+        <div style="margin-bottom: 10px">
+            <a class="btn btn-warning" href="/user/add/" target="_blank">新建用户</a>
+        </div>
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">新建用户列表</div>
+            <!-- Table -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>姓名</th>
+                        <th>密码</th>
+                        <th>年龄</th>
+                        <th>账户余额</th>
+                        <th>入职时间</th>
+                        <th>性别</th>
+                        <th>所属部门</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <form method="post">
+                    {% csrf_token %}
+                        <tr>
+                            <td><input type="text" placeholder="ID" name="id"></td>
+                            <td><input type="text" placeholder="姓名" name="name"></td>
+                            <td><input type="text" placeholder="密码" name="password"></td>
+                            <td><input type="text" placeholder="年龄" name="age"></td>
+                            <td><input type="text" placeholder="账号余额" name="account"></td>
+                            <td><input id="dt" type="text" placeholder="入职时间" name="create_time"></td>
+                            <td><select name="gender">
+                                    {% for item in gender_choices %}
+                                        <option value="{{ item.0 }}">{{ item.1 }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                            <td><select name="depart">
+                                    {% for item in queryset %}
+                                        <option value="{{ item.id }}">{{ item.title }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                            <td><input type="submit" class="btn btn-warning btn-xs"></td>
+                        </tr>
+                    </form>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script src="{% static 'plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js' %}"></script>
+    <script>
+        $(function () {
+            $('#dt').datepicker({
+            format: 'yyyy-mm-dd',
+            startDate: '0',
+            language: "zh-CN",
+            autoclose: true
+            });
+        })
+    </script>
+{% endblock %}

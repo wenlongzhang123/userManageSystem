@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="container">
+    <!-- Single button -->
+    <div class="clearfix" style="margin-bottom: 10px">
+        <a class="btn btn-warning" href="/city/add/">
+            新建城市</a>
+    </div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">城市列表</div>
+        <!-- Table -->
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>名称</th>
+                <th>人口</th>
+                <th>Logo</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in queryset %}
+            <tr>
+                <th scope="row">{{ item.id }}</th>
+                <td>{{ item.name }}</td>
+                <td>{{ item.count }}</td>
+                <td>
+                <img src="/media/{{ item.img }}" style="height: 80px;">
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <ul class="pagination">
+        {{ page_string }}
+    </ul>
+</div>
+
+{% endblock %}

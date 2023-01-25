@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <!-- Single button -->
+        <div style="margin-bottom: 10px">
+            <a class="btn btn-warning"href="/depart/add/" target="_blank">新建部门</a>
+        </div>
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">修改部门列表</div>
+            <!-- Table -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <form method="post">
+                    {% csrf_token %}
+                        <tr>
+                            <td><input type="text" name="b" value="{{ row_object.title }}"></td>
+                            <td><input type="submit" class="btn btn-warning btn-xs"></td>
+                        </tr>
+                    </form>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
